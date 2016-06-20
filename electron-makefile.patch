@@ -1,0 +1,50 @@
+From a05fe0a02b275ac641b80ecda72cdfbaf93b149b Mon Sep 17 00:00:00 2001
+From: Vadim Rutkovsky <vrutkovs@redhat.com>
+Date: Thu, 16 Jun 2016 22:50:41 +0200
+Subject: [PATCH] Add Makefile
+
+---
+ Makefile | 10 ++++++++++
+ build    |  4 +++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+ create mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..67a763a
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,10 @@
++all: build
++
++build:
++	git submodule sync --recursive
++	./build
++
++install:
++	echo "nope"
++
++.PHONY: all build
+diff --git a/build b/build
+index ae0907f..376fcfe 100755
+--- a/build
++++ b/build
+@@ -1,5 +1,7 @@
+ #!/bin/sh
+
++set -ex
++
+ #Valid flags
+ flags=(
+     '-t|--target_arch'
+@@ -28,7 +30,7 @@ libchromiumcontent_bootstrap() {
+
+     #Sync libchromiumcontent submodules
+     cd $LIBCHROMIUM_PATH;
+-    python script/bootstrap;
++    python script/bootstrap -v;
+
+     #Use_gtk3 to defines via sed
+     sed -e "s|'use_gtk3': 1, ||" \
+--
+2.5.5
